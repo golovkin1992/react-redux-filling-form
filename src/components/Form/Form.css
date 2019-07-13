@@ -1,0 +1,10 @@
+.container 		{ 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-family:'Roboto';
+  width:400px; 
+  margin:30px auto 0; 
+  background:#FFF;
+  padding:10px 50px 50px;
+}

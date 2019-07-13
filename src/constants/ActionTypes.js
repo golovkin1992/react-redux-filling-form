@@ -1,0 +1,5 @@
+const INPUT_VALIDATE = 'INPUT_VALIDATE';
+
+export {
+  INPUT_VALIDATE,
+};

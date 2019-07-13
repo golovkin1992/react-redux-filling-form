@@ -1,0 +1,78 @@
+
+.group {
+  height: 100px;
+  width: 200px;
+}
+.field {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  max-width: 280px;
+  height: 45px;
+}
+.field .label {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  font-size: 16px;
+  font-weight: 500;
+  transform-origin: 0 0;
+  transition: all 0.2s ease;
+}
+
+.field .border {
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  transition: all 0.15s ease;
+}
+
+
+input {
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  width: 100%;
+  border: 0;
+  font-family: inherit;
+  height: 35px;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid #c8ccd4;
+  background: none;
+  border-radius: 0;
+  color: #223254;
+  transition: all 0.15s ease;
+}
+
+.error {
+  margin-top: 2px;
+  color: red;
+  font-size: 12px;
+}
+
+.field input:hover {
+  background: rgba(34,50,84,0.03);
+}
+.field input:not(:placeholder-shown) + .label {
+  transform: translateY(-23px) scale(0.75);
+}
+.field input:focus {
+  background: none;
+  outline: none;
+}
+.invalid {
+  color: red;
+}
+.valid {
+  color: green;
+}
+.field input:focus + .label{
+  transform: translateY(-23px) scale(0.75);
+}
+.field input:focus + .label + .border {
+  transform: scaleX(1);
+}
