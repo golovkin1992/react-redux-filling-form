@@ -1,16 +1,24 @@
 import { connect } from 'react-redux';
-import { isEmpty } from '../../validation';
 import App from './App';
-import { inputValidateAction } from '../../actions';
+import {
+  inputValidateAction,
+  loadDataAction,
+  saveDataAction,
+  clearDataAction,
+} from '../../actions';
 
-const isEnabled = data => !data.every(item => isEmpty(item.error));
-const mapStateToProps = (state) => {
-  const { data } = state;
-  return {
-    data,
-    hasErrors: isEnabled(data),
-  };
-};
+const hasErrors = state => Object.keys(state).every(item => state[item].error === '')
+  && !Object.keys(state).some(item => state[item].value === '');
+
+const mapStateToProps = state => ({
+  data: state,
+  hasErrors: !hasErrors(state),
+});
 export default
 connect(mapStateToProps,
-  { inputValidate: inputValidateAction })(App);
+  {
+    inputValidate: inputValidateAction,
+    loadData: loadDataAction,
+    saveData: saveDataAction,
+    clearData: clearDataAction,
+  })(App);

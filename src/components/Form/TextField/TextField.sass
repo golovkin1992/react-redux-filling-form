@@ -1,0 +1,44 @@
+.field
+  position: relative
+  height: 70px
+  &__text-block 
+    box-sizing: border-box
+    width: 100%
+    border: 0
+    height: 35px
+    font-size: 16px
+    border-bottom: 2px solid #c8ccd4
+    border-radius: 0
+    transition: all 0.15s ease
+    &:not(:placeholder-shown) + .field__label 
+      transform: translateY(-15px) scale(0.75)
+    &:focus
+      outline: none
+      &+ .field__label
+       transform: translateY(-15px) scale(0.75)
+  &__label
+    position: absolute
+    top: 5px
+    left: 0
+    font-size: 16px
+    font-weight: 500
+    transform-origin: 0 0
+    transition: all 0.2s ease
+    transform: translateY(0)
+  &__error
+    font-size: 12px
+    margin-top: 4px
+
+.invalid
+  color: red
+  &_input
+    border-bottom: 2px solid red
+    
+.valid
+  color: green
+  &_input
+    border-bottom: 2px solid green
+.error
+      
+
+

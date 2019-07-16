@@ -32,7 +32,7 @@
 }
 
 
-input {
+.field__text-block {
   box-sizing: border-box;
   -webkit-appearance: none;
   width: 100%;

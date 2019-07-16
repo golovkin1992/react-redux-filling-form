@@ -3,58 +3,60 @@ import * as validate from '../validation';
 const { validateField } = validate;
 
 const initialState = {
-  data: [
-    {
-      name: 'tel',
-      label: 'Телефон',
-      value: '',
-      error: '',
-    },
-    {
-      name: 'email',
-      label: 'E-mail',
-      value: '',
-      error: '',
-    },
-    {
-      name: 'date',
-      label: 'Дата',
-      value: '',
-      error: '',
-    },
-    {
-      name: 'stopka',
-      label: 'Стопка',
-      value: '',
-      error: '',
-    },
-
-  ],
+  trackNum: {
+    value: '',
+    error: '',
+  },
+  fio: {
+    value: '',
+    error: '',
+  },
+  adress: {
+    value: '',
+    error: '',
+  },
+  passSeries: {
+    value: '',
+    error: '',
+  },
+  passNumber: {
+    value: '',
+    error: '',
+  },
+  passIssueDate: {
+    value: '',
+    error: '',
+  },
+  passIssuingAuthority: {
+    value: '',
+    error: '',
+  },
+  passUnitCode: {
+    value: '',
+    error: '',
+  },
 };
 
 export default (state = initialState, action) => {
-  const { data } = state;
   const { type, payload } = action;
   switch (type) {
     case 'INPUT_VALIDATE': {
       const { name, value } = payload;
-      /* / const newState = payload
-        .test(/((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{10}/);
-      console.log(newState);/ */
-
-      // const isEnabled = Object.keys(state).some(x => state[x].error === '');
-      // console.log(isEnabled);
-      const index = data.findIndex(el => el.name === name);
-      const updatedObj = Object.assign({}, data[index], { value, error: validateField(value, name) });
-      const newState = {
-        data: [
-          ...data.slice(0, index),
-          updatedObj,
-          ...data.slice(index + 1),
-        ],
-      };
-
-      return newState;
+      return { ...state, [name]: { value, error: validateField(value, name) } };
+    }
+    case 'LOAD_DATA': {
+      const data = localStorage.getItem('blank');
+      if (!data) {
+        return state;
+      }
+      return JSON.parse(data);
+    }
+    case 'SAVE_DATA': {
+      localStorage.setItem('blank', JSON.stringify(state));
+      return state;
+    }
+    case 'CLEAR_DATA': {
+      return localStorage.removeItem('blank');
     }
     default:
       return state;
