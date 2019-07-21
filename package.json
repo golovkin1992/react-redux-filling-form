@@ -1,9 +1,10 @@
 {
   "name": "react-redux-filling-form",
-  "homepage": "https://golovkin1992.github.io/redux-redux-filling-form/",
+  "homepage": "https://golovkin1992.github.io/react-redux-filling-form/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.6",
     "eslint-config-airbnb": "^17.1.1",
     "gh-pages": "^2.0.1",
     "prop-types": "^15.7.2",

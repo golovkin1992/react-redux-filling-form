@@ -1,11 +1,29 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './TextField.sass';
+import maskDate from '../../../utils/maskDate';
 
 export default class TextField extends PureComponent {
+  getValue = (e) => {
+    const { value } = e.target;
+    const { isDate } = this.props;
+
+    if (isDate) {
+      return maskDate(value);
+    }
+
+    return value;
+  }
+
   handleChange = (e) => {
-    const { onValidate, name } = this.props;
-    onValidate(name, e.target.value);
+    const { onChangeField, name } = this.props;
+    onChangeField(name, this.getValue(e));
+  }
+
+  handleBlur = (e) => {
+    const { value } = e.target;
+    const { onValidateField, name } = this.props;
+    onValidateField(name, value);
   }
 
   render() {
@@ -14,7 +32,7 @@ export default class TextField extends PureComponent {
       value,
       error,
       name,
-      disabledInputs,
+      isDisabled,
     } = this.props;
     return (
       <label htmlFor={name} className="field">
@@ -25,9 +43,9 @@ export default class TextField extends PureComponent {
           id={name}
           value={value}
           onChange={this.handleChange}
-          onFocus={this.handleChange}
+          onBlur={this.handleBlur}
           autoComplete="off"
-          disabled={disabledInputs}
+          disabled={isDisabled}
         />
         <span className={`field__label ${error === '' ? 'valid' : 'invalid'}`}>{label}</span>
         <p className="field__error">{error}</p>
@@ -36,10 +54,12 @@ export default class TextField extends PureComponent {
   }
 }
 TextField.propTypes = {
-  onValidate: PropTypes.func.isRequired,
+  onChangeField: PropTypes.func.isRequired,
+  onValidateField: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   error: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  disabledInputs: PropTypes.bool.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
+  isDate: PropTypes.bool,
 };

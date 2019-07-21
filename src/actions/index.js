@@ -1,19 +1,15 @@
-import * as types from '../constants/ActionTypes';
+import {
+  VALIDATE_FIELD,
+  CHANGE_FIELD,
+  LOAD_FORM,
+  CLEAR_FORM,
+  SUBMIT_FORM,
+} from '../constants/ActionTypes';
 
-const {
-  INPUT_VALIDATE,
-  LOAD_DATA,
-  SAVE_DATA,
-  CLEAR_DATA,
-} = types;
-const inputValidateAction = (name, value) => ({ type: INPUT_VALIDATE, payload: { name, value } });
-const loadDataAction = () => ({ type: LOAD_DATA });
-const saveDataAction = () => ({ type: SAVE_DATA });
-const clearDataAction = () => ({ type: CLEAR_DATA });
-
-export {
-  inputValidateAction,
-  loadDataAction,
-  saveDataAction,
-  clearDataAction,
-};
+export const changeFieldAction = (name, value) => (
+  { type: CHANGE_FIELD, payload: { name, value } });
+export const validateFieldAction = (name, value) => (
+  { type: VALIDATE_FIELD, payload: { name, value } });
+export const loadFormAction = () => ({ type: LOAD_FORM });
+export const clearFormAction = () => ({ type: CLEAR_FORM });
+export const submitFormAction = () => ({ type: SUBMIT_FORM });

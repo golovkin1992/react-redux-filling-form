@@ -1,24 +1,29 @@
 import { connect } from 'react-redux';
 import App from './App';
 import {
-  inputValidateAction,
-  loadDataAction,
-  saveDataAction,
-  clearDataAction,
+  loadFormAction,
+  clearFormAction,
+  changeFieldAction,
+  validateFieldAction,
+  submitFormAction,
 } from '../../actions';
 
-const hasErrors = state => Object.keys(state).every(item => state[item].error === '')
-  && !Object.keys(state).some(item => state[item].value === '');
+const hasErrors = fields => !(Object.keys(fields).every((item => fields[item].error === ''))
+  && !Object.keys(fields).some(item => fields[item].value === ''));
 
 const mapStateToProps = state => ({
-  data: state,
-  hasErrors: !hasErrors(state),
+  formData: state.fields,
+  hasErrors: hasErrors(state.fields),
+  isVisibleBlank: state.isVisibleBlank,
+  isDisabledForm: state.isDisabledForm,
 });
+
 export default
 connect(mapStateToProps,
   {
-    inputValidate: inputValidateAction,
-    loadData: loadDataAction,
-    saveData: saveDataAction,
-    clearData: clearDataAction,
+    changeField: changeFieldAction,
+    validateField: validateFieldAction,
+    loadForm: loadFormAction,
+    clearForm: clearFormAction,
+    submitForm: submitFormAction,
   })(App);

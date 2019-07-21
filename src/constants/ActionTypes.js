@@ -1,10 +1,5 @@
-const INPUT_VALIDATE = 'INPUT_VALIDATE';
-const SAVE_DATA = 'SAVE_DATA';
-const LOAD_DATA = 'LOAD_DATA';
-const CLEAR_DATA = 'CLEAR_DATA';
-export {
-  INPUT_VALIDATE,
-  SAVE_DATA,
-  LOAD_DATA,
-  CLEAR_DATA,
-};
+export const CHANGE_FIELD = 'CHANGE_FIELD';
+export const VALIDATE_FIELD = 'VALIDATE_FIELD';
+export const LOAD_FORM = 'LOAD_FORM';
+export const CLEAR_FORM = 'CLEAR_FORM';
+export const SUBMIT_FORM = 'SUBMIT_FORM';

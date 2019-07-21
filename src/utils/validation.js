@@ -1,7 +1,7 @@
-import errors from './constants/ErrorsField';
+import errors from '../constants/ErrorsField';
 
-const isEmpty = str => str.trim() === '';
-const validateField = (value, name) => {
+export const isEmpty = str => str.trim() === '';
+export const validateField = (value, name) => {
   let errorField = '';
   const { pattern, error } = errors[name];
   if (isEmpty(value)) {
@@ -11,8 +11,4 @@ const validateField = (value, name) => {
     errorField = '';
   } else errorField = error;
   return errorField;
-};
-export {
-  isEmpty,
-  validateField,
 };

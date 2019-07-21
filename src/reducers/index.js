@@ -1,62 +1,73 @@
-import * as validate from '../validation';
-
-const { validateField } = validate;
+import { validateField } from '../utils/validation';
 
 const initialState = {
-  trackNum: {
-    value: '',
-    error: '',
+
+  fields: {
+    trackNum: {
+      value: '',
+      error: '',
+    },
+    fio: {
+      value: '',
+      error: '',
+    },
+    address: {
+      value: '',
+      error: '',
+    },
+    passSeries: {
+      value: '',
+      error: '',
+    },
+    passNumber: {
+      value: '',
+      error: '',
+    },
+    passIssueDate: {
+      value: '',
+      error: '',
+    },
+    passIssuingAuthority: {
+      value: '',
+      error: '',
+    },
+    passUnitCode: {
+      value: '',
+      error: '',
+    },
   },
-  fio: {
-    value: '',
-    error: '',
-  },
-  adress: {
-    value: '',
-    error: '',
-  },
-  passSeries: {
-    value: '',
-    error: '',
-  },
-  passNumber: {
-    value: '',
-    error: '',
-  },
-  passIssueDate: {
-    value: '',
-    error: '',
-  },
-  passIssuingAuthority: {
-    value: '',
-    error: '',
-  },
-  passUnitCode: {
-    value: '',
-    error: '',
-  },
+
+  isVisibleBlank: false,
+  isDisabledForm: false,
 };
 
 export default (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case 'INPUT_VALIDATE': {
+    case 'VALIDATE_FIELD': {
       const { name, value } = payload;
-      return { ...state, [name]: { value, error: validateField(value, name) } };
+      const { fields } = state;
+      return { ...state, fields: { ...fields, [name]: { value, error: validateField(value, name) } } };
     }
-    case 'LOAD_DATA': {
+    case 'CHANGE_FIELD': {
+      const { name, value } = payload;
+      const { fields } = state;
+      return { ...state, fields: { ...fields, [name]: { value, error: '' } } };
+    }
+    case 'LOAD_FORM': {
       const data = localStorage.getItem('blank');
       if (!data) {
         return state;
       }
       return JSON.parse(data);
     }
-    case 'SAVE_DATA': {
-      localStorage.setItem('blank', JSON.stringify(state));
-      return state;
+    case 'CLEAR_FORM': {
+      localStorage.setItem('blank', JSON.stringify(initialState));
+      return initialState;
     }
-    case 'CLEAR_DATA': {
-      return localStorage.removeItem('blank');
+    case 'SUBMIT_FORM': {
+      localStorage.setItem('blank', JSON.stringify(state));
+      return { ...state, isDisabledForm: true, isVisibleBlank: true };
     }
     default:
       return state;

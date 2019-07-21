@@ -4,45 +4,35 @@ import Form from '../Form';
 import Blanc from '../Blanc';
 
 export default class App extends PureComponent {
-  state = {
-    isVisibleBlank: false,
-    disabledInputs: false,
-  }
-
   componentDidMount() {
-    const { loadData } = this.props;
-    loadData();
-  }
-
-  update = () => {
-    const { saveData } = this.props;
-    saveData();
-    this.setState({ isVisibleBlank: true, disabledInputs: true });
+    const { loadForm } = this.props;
+    loadForm();
   }
 
   render() {
     const {
-      isVisibleBlank,
-      disabledInputs,
-    } = this.state;
-    const {
-      data,
-      inputValidate,
+      formData,
+      validateField,
+      changeField,
       hasErrors,
-      clearData,
+      clearForm,
+      submitForm,
+      isDisabledForm,
+      isVisibleBlank,
     } = this.props;
     return (
       <Fragment>
         <Form
-          data={data}
-          inputValidate={inputValidate}
-          submitEnabled={hasErrors}
-          update={this.update}
-          disabledInputs={disabledInputs}
-          reset={clearData}
+          formData={formData}
+          onChangeField={changeField}
+          onValidateField={validateField}
+          onReset={clearForm}
+          isSubmit={hasErrors}
+          isDisabled={isDisabledForm}
+          onSubmit={submitForm}
         />
         <Blanc
-          data={data}
+          data={formData}
           isVisible={isVisibleBlank}
         />
       </Fragment>
@@ -51,10 +41,13 @@ export default class App extends PureComponent {
 }
 
 App.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
-  inputValidate: PropTypes.func.isRequired,
+  formData: PropTypes.objectOf(PropTypes.object).isRequired,
+  changeField: PropTypes.func.isRequired,
+  validateField: PropTypes.func.isRequired,
   hasErrors: PropTypes.bool.isRequired,
-  loadData: PropTypes.func.isRequired,
-  saveData: PropTypes.func.isRequired,
-  clearData: PropTypes.func.isRequired,
+  loadForm: PropTypes.func.isRequired,
+  submitForm: PropTypes.func.isRequired,
+  clearForm: PropTypes.func.isRequired,
+  isVisibleBlank: PropTypes.bool.isRequired,
+  isDisabledForm: PropTypes.bool.isRequired,
 };
