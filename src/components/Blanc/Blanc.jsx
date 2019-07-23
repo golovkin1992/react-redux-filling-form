@@ -16,8 +16,8 @@ const Blanc = ({ isVisible, data }) => (
       <p className="hint">Заполните форму!</p>
     )
 );
-export default Blanc;
 Blanc.propTypes = {
   data: PropTypes.objectOf(PropTypes.object).isRequired,
   isVisible: PropTypes.bool.isRequired,
 };
+export default Blanc;

@@ -6,66 +6,65 @@ import './Form.sass';
 import groupFields from '../../constants/groupFields';
 
 export default class Form extends PureComponent {
-  handleClick = (e) => {
-    e.preventDefault();
-    const { onSubmit } = this.props;
-    onSubmit();
-  }
+ handleSubmit = (e) => {
+   e.preventDefault();
+   const { onSubmit } = this.props;
+   onSubmit();
+ }
 
-  handleResetClick = () => {
-    const { onReset } = this.props;
-    onReset();
-  }
-
-  render() {
-    const {
-      formData,
-      onValidateField,
-      onChangeField,
-      isSubmit,
-      isDisabled,
-    } = this.props;
-    return (
-      <div className="container">
-        {groupFields.map(group => (
-          <div
-            className={classNames('group', group.className)}
-            key={group.title}
-          >
-            <p className="group__label">{group.title}</p>
-            {group.fields.map(field => (
-              <TextField
-                key={field.name}
-                name={field.name}
-                label={field.title}
-                value={formData[field.name].value}
-                error={formData[field.name].error}
-                onValidateField={onValidateField}
-                onChangeField={onChangeField}
-                isDisabled={isDisabled}
-                isDate={field.isDate}
-              />
-            ))}
-          </div>
-        ))}
-        <button
-          className="btn btn_run"
-          type="submit"
-          disabled={isSubmit}
-          onClick={this.handleClick}
-        >
+ render() {
+   const {
+     formData,
+     onValidateField,
+     onChangeField,
+     isSubmit,
+     isDisabled,
+     onReset,
+   } = this.props;
+   return (
+     <form
+       onSubmit={this.handleSubmit}
+     >
+       <div className="container">
+         {groupFields.map(group => (
+           <div
+             className={classNames('group', group.className)}
+             key={group.title}
+           >
+             <p className="group__label">{group.title}</p>
+             {group.fields.map(field => (
+               <TextField
+                 key={field.name}
+                 name={field.name}
+                 label={field.title}
+                 value={formData[field.name].value}
+                 error={formData[field.name].error}
+                 onValidateField={onValidateField}
+                 onChangeField={onChangeField}
+                 isDisabled={isDisabled}
+                 isDate={field.isDate}
+               />
+             ))}
+           </div>
+         ))}
+         <button
+           className="btn btn_run"
+           type="submit"
+           disabled={isSubmit}
+         >
       Сформировать
-        </button>
-        <button
-          className="btn btn_reset"
-          type="submit"
-          onClick={this.handleResetClick}
-        >
+         </button>
+         <button
+           className="btn btn_reset"
+           type="button"
+           onClick={onReset}
+         >
       Очистить
-        </button>
-      </div>
-    );
-  }
+         </button>
+       </div>
+     </form>
+   );
+ }
 }
 Form.propTypes = {
   onChangeField: PropTypes.func.isRequired,
