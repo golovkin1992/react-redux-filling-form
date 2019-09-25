@@ -15,7 +15,7 @@ export default class Form extends PureComponent {
  render() {
    const {
      formData,
-     onValidateField,
+     onValidateField,сс
      onChangeField,
      isSubmit,
      isDisabled,
